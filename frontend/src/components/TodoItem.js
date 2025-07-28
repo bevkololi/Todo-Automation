@@ -30,10 +30,11 @@ const TodoItem = ({ todo, onUpdate, onToggle, onDelete }) => {
     };
 
     return (
-        <div className="todo-item">
+        <div className="todo-item" data-testid="todo-item">
             <input
                 type="checkbox"
                 className="todo-checkbox"
+                data-testid="todo-checkbox"
                 checked={todo.completed}
                 onChange={() => onToggle(todo.id)}
             />
@@ -57,7 +58,7 @@ const TodoItem = ({ todo, onUpdate, onToggle, onDelete }) => {
                     />
                 ) : (
                     <div style={{ flex: 1 }}>
-                        <div className={`todo-title ${todo.completed ? 'completed' : ''}`}>
+                        <div className={`todo-title ${todo.completed ? 'completed' : ''}`} data-testid="todo-title">
                             {todo.title}
                         </div>
                         <div className="todo-date">
@@ -75,6 +76,7 @@ const TodoItem = ({ todo, onUpdate, onToggle, onDelete }) => {
                     <>
                         <button
                             className="todo-btn edit-btn"
+                            data-testid="edit-btn"
                             onClick={() => setIsEditing(true)}
                             title="Edit todo"
                         >
@@ -82,6 +84,7 @@ const TodoItem = ({ todo, onUpdate, onToggle, onDelete }) => {
                         </button>
                         <button
                             className="todo-btn delete-btn"
+                            data-testid="delete-btn"
                             onClick={() => onDelete(todo)}
                             title="Delete todo"
                         >
@@ -92,6 +95,7 @@ const TodoItem = ({ todo, onUpdate, onToggle, onDelete }) => {
                     <>
                         <button
                             className="todo-btn edit-btn"
+                            data-testid="edit-btn"
                             onClick={handleEdit}
                             title="Save changes"
                         >
@@ -99,6 +103,7 @@ const TodoItem = ({ todo, onUpdate, onToggle, onDelete }) => {
                         </button>
                         <button
                             className="todo-btn delete-btn"
+                            data-testid="delete-btn"
                             onClick={handleCancelEdit}
                             title="Cancel edit"
                         >

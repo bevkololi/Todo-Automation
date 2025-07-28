@@ -55,17 +55,18 @@ const TodoList = ({ todos, currentView, onAddTodo, onUpdateTodo, onToggleTodo, o
                 <div className="todo-header">
                     <h3>{getViewTitle()} ({todos.length})</h3>
                     {todos.length > 0 && currentView === 'todos' && (
-                        <button className="clear-all-btn" onClick={onClearAll}>
+                        <button className="clear-all-btn" data-testid="clear-all-btn" onClick={onClearAll}>
                             Clear All
                         </button>
                     )}
                 </div>
 
                 {shouldShowAddForm && (
-                    <form className="add-todo-form" onSubmit={handleSubmit}>
+                    <form className="add-todo-form" data-testid="add-todo-form" onSubmit={handleSubmit}>
                         <input
                             type="text"
                             className="add-todo-input"
+                            data-testid="add-todo-input"
                             placeholder="Add a new task..."
                             value={newTodoTitle}
                             onChange={(e) => setNewTodoTitle(e.target.value)}
@@ -74,13 +75,16 @@ const TodoList = ({ todos, currentView, onAddTodo, onUpdateTodo, onToggleTodo, o
                     </form>
                 )}
 
-                <div className="todo-list">
+                <div className="todo-list" data-testid="todo-list">
                     {todos.length === 0 ? (
-                        <div style={{ padding: '40px 20px', textAlign: 'center', color: '#6c757d' }}>
+                        <div 
+                            style={{ padding: '40px 20px', textAlign: 'center', color: '#6c757d' }}
+                            data-testid="empty-state"
+                        >
                             <div style={{ fontSize: '48px', marginBottom: '10px' }}>
                                 {currentView === 'completed' ? '🎉' : currentView === 'pending' ? '📝' : '📝'}
                             </div>
-                            <h3>
+                            <h3 data-testid="empty-state-title">
                                 {currentView === 'completed'
                                     ? 'No completed tasks yet'
                                     : currentView === 'pending'
@@ -88,7 +92,7 @@ const TodoList = ({ todos, currentView, onAddTodo, onUpdateTodo, onToggleTodo, o
                                         : 'No todos yet'
                                 }
                             </h3>
-                            <p>
+                            <p data-testid="empty-state-description">
                                 {currentView === 'completed'
                                     ? 'Complete some tasks to see them here!'
                                     : currentView === 'pending'

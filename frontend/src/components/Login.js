@@ -28,13 +28,14 @@ const Login = ({ onLogin, loading }) => {
                     <p>Sign in to manage your todos</p>
                 </div>
 
-                <form className="login-form" onSubmit={handleSubmit}>
+                <form className="login-form" data-testid="login-form" onSubmit={handleSubmit}>
                     <div className="form-group">
                         <label htmlFor="username">Username</label>
                         <input
                             type="text"
                             id="username"
                             name="username"
+                            data-testid="username-input"
                             value={formData.username}
                             onChange={handleChange}
                             placeholder="Enter your username"
@@ -49,6 +50,7 @@ const Login = ({ onLogin, loading }) => {
                             type="password"
                             id="password"
                             name="password"
+                            data-testid="password-input"
                             value={formData.password}
                             onChange={handleChange}
                             placeholder="Enter your password"
@@ -60,6 +62,7 @@ const Login = ({ onLogin, loading }) => {
                     <button
                         type="submit"
                         className="login-btn"
+                        data-testid="login-button"
                         disabled={loading || !formData.username || !formData.password}
                     >
                         {loading ? 'Signing in...' : 'Sign In'}

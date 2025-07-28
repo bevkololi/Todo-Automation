@@ -2,7 +2,7 @@ import React from 'react';
 
 const SideMenu = ({ currentView, onViewChange, onLogout, todoCount }) => {
     return (
-        <nav className="side-menu">
+        <nav className="side-menu" data-testid="side-menu">
             <div className="side-menu-header">
                 <h1>Todo App</h1>
                 <p>Manage your tasks efficiently</p>
@@ -11,6 +11,7 @@ const SideMenu = ({ currentView, onViewChange, onLogout, todoCount }) => {
             <div className="side-menu-nav">
                 <div
                     className={`nav-item ${currentView === 'todos' ? 'active' : ''}`}
+                    data-testid="nav-item"
                     onClick={() => onViewChange('todos')}
                 >
                     <i>📝</i>
@@ -20,6 +21,7 @@ const SideMenu = ({ currentView, onViewChange, onLogout, todoCount }) => {
 
                 <div
                     className={`nav-item ${currentView === 'completed' ? 'active' : ''}`}
+                    data-testid="nav-item"
                     onClick={() => onViewChange('completed')}
                 >
                     <i>✅</i>
@@ -28,6 +30,7 @@ const SideMenu = ({ currentView, onViewChange, onLogout, todoCount }) => {
 
                 <div
                     className={`nav-item ${currentView === 'pending' ? 'active' : ''}`}
+                    data-testid="nav-item"
                     onClick={() => onViewChange('pending')}
                 >
                     <i>⏳</i>
@@ -36,7 +39,7 @@ const SideMenu = ({ currentView, onViewChange, onLogout, todoCount }) => {
             </div>
 
             <div className="side-menu-footer">
-                <button className="logout-btn" onClick={onLogout}>
+                <button className="logout-btn" data-testid="logout-btn" onClick={onLogout}>
                     <i>🚪</i> Logout
                 </button>
             </div>

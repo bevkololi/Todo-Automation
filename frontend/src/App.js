@@ -227,8 +227,8 @@ function App() {
 
       {/* Delete Confirmation Modal */}
       {deleteConfirmation && (
-        <div className="modal-overlay">
-          <div className="modal">
+        <div className="modal-overlay" data-testid="modal-overlay">
+          <div className="modal" data-testid="modal">
             <div className="modal-header">
               <h3>Confirm Deletion</h3>
             </div>
@@ -236,10 +236,10 @@ function App() {
               <p>{deleteConfirmation.message}</p>
             </div>
             <div className="modal-footer">
-              <button className="btn-cancel" onClick={cancelDelete}>
+              <button className="btn-cancel" data-testid="modal-cancel-btn" onClick={cancelDelete}>
                 Cancel
               </button>
-              <button className="btn-delete" onClick={confirmDelete}>
+              <button className="btn-delete" data-testid="modal-confirm-btn" onClick={confirmDelete}>
                 Delete
               </button>
             </div>
