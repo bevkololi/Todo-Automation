@@ -23,26 +23,34 @@ jobs:
     - name: Install dependencies
       run: npm ci
     
+    - name: Install backend dependencies
+      run: |
+        cd backend
+        npm ci
+    
+    - name: Install frontend dependencies
+      run: |
+        cd frontend
+        npm ci
+    
     - name: Install Playwright Browsers
       run: npx playwright install --with-deps
     
     - name: Start Backend Server
       run: |
-        cd backend
-        npm ci
         npm start &
         sleep 10
       env:
         NODE_ENV: test
+      working-directory: ./backend
     
     - name: Start Frontend Server
       run: |
-        cd frontend
-        npm ci
         npm start &
         sleep 15
       env:
         REACT_APP_API_URL: http://localhost:3001
+      working-directory: ./frontend
     
     - name: Run Playwright tests
       run: npx playwright test
@@ -84,26 +92,34 @@ jobs:
     - name: Install dependencies
       run: npm ci
     
+    - name: Install backend dependencies
+      run: |
+        cd backend
+        npm ci
+    
+    - name: Install frontend dependencies
+      run: |
+        cd frontend
+        npm ci
+    
     - name: Install Playwright Browsers
       run: npx playwright install --with-deps
     
     - name: Start Backend Server
       run: |
-        cd backend
-        npm ci
         npm start
       env:
         NODE_ENV: test
       shell: cmd
+      working-directory: ./backend
     
     - name: Start Frontend Server
       run: |
-        cd frontend
-        npm ci
         npm start
       env:
         REACT_APP_API_URL: http://localhost:3001
       shell: cmd
+      working-directory: ./frontend
     
     - name: Run Playwright tests
       run: npx playwright test
@@ -138,26 +154,34 @@ jobs:
     - name: Install dependencies
       run: npm ci
     
+    - name: Install backend dependencies
+      run: |
+        cd backend
+        npm ci
+    
+    - name: Install frontend dependencies
+      run: |
+        cd frontend
+        npm ci
+    
     - name: Install Playwright Browsers
       run: npx playwright install --with-deps
     
     - name: Start Backend Server
       run: |
-        cd backend
-        npm ci
         npm start &
         sleep 10
       env:
         NODE_ENV: test
+      working-directory: ./backend
     
     - name: Start Frontend Server
       run: |
-        cd frontend
-        npm ci
         npm start &
         sleep 15
       env:
         REACT_APP_API_URL: http://localhost:3001
+      working-directory: ./frontend
     
     - name: Run Playwright tests
       run: npx playwright test
