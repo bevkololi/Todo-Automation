@@ -25,6 +25,9 @@ module.exports = defineConfig({
         /* Base URL to use in actions like `await page.goto('/')`. */
         baseURL: 'http://localhost:3000',
 
+        /* Run in headless mode in CI, headed mode locally */
+        headless: !!process.env.CI,
+
         /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
         trace: 'on-first-retry',
 
