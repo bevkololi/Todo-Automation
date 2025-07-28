@@ -1,4 +1,4 @@
-name: Playwright Tests (Optimized)
+name: API Tests with Newman
 
 on:
   push:
@@ -7,8 +7,8 @@ on:
     branches: [ '**' ]
 
 jobs:
-  test:
-    timeout-minutes: 60
+  api-tests:
+    timeout-minutes: 30
     runs-on: ubuntu-latest
     
     steps:
@@ -28,13 +28,8 @@ jobs:
         cd backend
         npm ci
     
-    - name: Install frontend dependencies
-      run: |
-        cd frontend
-        npm ci
-    
-    - name: Install Playwright Browsers
-      run: npx playwright install --with-deps
+    - name: Install Newman
+      run: npm install -g newman
     
     - name: Start Backend Server
       run: |
@@ -44,44 +39,29 @@ jobs:
         NODE_ENV: test
       working-directory: ./backend
     
-    - name: Run API Tests with Newman
+    - name: Run API Tests
       run: npm run api:test:ci
       env:
         CI: true
         NODE_ENV: test
     
-    - name: Run Playwright tests
-      run: npx playwright test
-      env:
-        CI: true
-        NODE_ENV: test
-    
-    - name: Upload test results
+    - name: Upload API Test Results
       if: always()
       uses: actions/upload-artifact@v4
       with:
-        name: playwright-report
+        name: newman-api-results
         path: |
-          playwright-report/
-          test-results/
-        retention-days: 30
-    
-    - name: Upload trace files
-      if: always()
-      uses: actions/upload-artifact@v4
-      with:
-        name: playwright-traces
-        path: test-results/**/*.trace
+          test-results/newman-report.json
+          test-results/newman-report.xml
         retention-days: 30
 
-  test-matrix:
-    timeout-minutes: 60
+  api-tests-matrix:
+    timeout-minutes: 30
     runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
       matrix:
         os: [ubuntu-latest, windows-latest, macos-latest]
-        browser: [chromium, firefox, webkit]
     
     steps:
     - uses: actions/checkout@v4
@@ -100,13 +80,8 @@ jobs:
         cd backend
         npm ci
     
-    - name: Install frontend dependencies
-      run: |
-        cd frontend
-        npm ci
-    
-    - name: Install Playwright Browsers
-      run: npx playwright install --with-deps
+    - name: Install Newman
+      run: npm install -g newman
     
     - name: Start Backend Server
       run: |
@@ -116,24 +91,18 @@ jobs:
         NODE_ENV: test
       working-directory: ./backend
     
-    - name: Run API Tests with Newman
+    - name: Run API Tests
       run: npm run api:test:ci
       env:
         CI: true
         NODE_ENV: test
     
-    - name: Run Playwright tests
-      run: npx playwright test --project=${{ matrix.browser }}
-      env:
-        CI: true
-        NODE_ENV: test
-    
-    - name: Upload test results
+    - name: Upload API Test Results
       if: always()
       uses: actions/upload-artifact@v4
       with:
-        name: playwright-report-${{ matrix.os }}-${{ matrix.browser }}
+        name: newman-api-results-${{ matrix.os }}
         path: |
-          playwright-report/
-          test-results/
+          test-results/newman-report.json
+          test-results/newman-report.xml
         retention-days: 30 

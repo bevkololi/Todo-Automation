@@ -7,15 +7,17 @@
     "test:headed": "playwright test --headed",
     "test:ui": "playwright test --ui",
     "test:debug": "playwright test --debug",
-    "test:report": "playwright show-report",
+    "test:report": "playwright test --reporter=html",
     "test:install": "playwright install",
-    "test:codegen": "playwright codegen http://localhost:3000",
+    "test:codegen": "playwright codegen",
+    "api:test": "newman run postman/Todo-Automation.postman_collection.json -e postman/Todo-Automation.postman_environment.json --reporters cli,json --reporter-json-export test-results/newman-report.json",
+    "api:test:ci": "newman run postman/Todo-Automation.postman_collection.json -e postman/Todo-Automation.postman_environment.json --reporters cli,junit --reporter-junit-export test-results/newman-report.xml",
     "backend:dev": "cd backend && npm run dev",
     "backend:start": "cd backend && npm start",
     "frontend:dev": "cd frontend && npm start",
     "frontend:build": "cd frontend && npm run build",
     "dev": "concurrently \"npm run backend:dev\" \"npm run frontend:dev\"",
-    "start": "concurrently \"npm run backend:start\" \"npm run frontend:start\""
+    "start": "concurrently \"npm run backend:start\" \"npm run frontend:dev\""
   },
   "keywords": [
     "todo",
@@ -28,7 +30,8 @@
   "license": "ISC",
   "devDependencies": {
     "@playwright/test": "^1.40.0",
-    "concurrently": "^8.2.2"
+    "concurrently": "^8.2.2",
+    "newman": "^6.0.0"
   },
   "engines": {
     "node": ">=16.0.0"

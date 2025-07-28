@@ -1,0 +1,23 @@
+{
+    "collection": "postman/Todo-Automation.postman_collection.json",
+    "environment": "postman/Todo-Automation.postman_environment.json",
+    "reporters": [
+        "cli",
+        "json",
+        "junit"
+    ],
+    "reporter": {
+        "json": {
+            "export": "test-results/newman-report.json"
+        },
+        "junit": {
+            "export": "test-results/newman-report.xml"
+        }
+    },
+    "delayRequest": 1000,
+    "timeoutRequest": 30000,
+    "timeoutScript": 5000,
+    "iterationCount": 1,
+    "bail": true,
+    "suppressExitCode": false
+}

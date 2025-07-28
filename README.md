@@ -66,6 +66,12 @@ npm test tests/specs/auth.spec.js
 
 # Generate test report
 npm run test:report
+
+# Run API tests with Newman
+npm run api:test
+
+# Run API tests for CI
+npm run api:test:ci
 ```
 
 ## 🧪 Test Suite
@@ -74,7 +80,8 @@ npm run test:report
 - **Authentication**: Login, logout, session management
 - **CRUD Operations**: Create, read, update, delete todos
 - **Navigation**: Side menu, different views, empty states
-- **API Testing**: Direct backend endpoint testing
+- **API Testing**: Direct backend endpoint testing with Newman/Postman
+- **UI Testing**: Frontend testing with Playwright
 
 ### Test Features
 - ✅ **Robust selectors** using `data-testid` attributes
@@ -84,6 +91,8 @@ npm run test:report
 - ✅ **Retry mechanism** for flaky tests
 - ✅ **Trace viewer** for debugging
 - ✅ **Multiple browsers** (Chromium, Firefox, WebKit)
+- ✅ **API testing** with Newman and Postman collections
+- ✅ **Comprehensive coverage** of all endpoints
 
 ### Test Structure
 ```
@@ -93,6 +102,11 @@ tests/
 ├── utils/             # Test utilities and helpers
 ├── global-setup.js    # Global test setup
 └── global-teardown.js # Global test cleanup
+
+postman/
+├── Todo-Automation.postman_collection.json    # API test collection
+├── Todo-Automation.postman_environment.json   # Environment variables
+└── README.md                                  # API testing documentation
 ```
 
 ## 🔄 CI/CD Pipeline
@@ -108,6 +122,12 @@ tests/
    - Uses Playwright's webServer configuration
    - Matrix testing across browsers
    - Faster execution
+   - Includes Newman API testing
+
+3. **API Tests with Newman** (`api-tests.yml`)
+   - Dedicated API testing workflow
+   - Multi-platform API validation
+   - Comprehensive endpoint coverage
 
 ### CI Features
 - ✅ **Automatic triggers** on push/PR to main/develop
