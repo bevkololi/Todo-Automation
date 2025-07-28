@@ -12,6 +12,8 @@
     "test:codegen": "playwright codegen",
     "api:test": "newman run postman/Todo-Automation.postman_collection.json -e postman/Todo-Automation.postman_environment.json --reporters cli,json --reporter-json-export test-results/newman-report.json",
     "api:test:ci": "newman run postman/Todo-Automation.postman_collection.json -e postman/Todo-Automation.postman_environment.json --reporters cli,junit --reporter-junit-export test-results/newman-report.xml",
+    "coverage": "npm run test && npm run api:test",
+    "coverage:report": "npm run test:report && open playwright-report/index.html",
     "backend:dev": "cd backend && npm run dev",
     "backend:start": "cd backend && npm start",
     "frontend:dev": "cd frontend && npm start",
