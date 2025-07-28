@@ -114,20 +114,22 @@ postman/
 ### GitHub Actions Workflows
 
 1. **Playwright Tests** (`playwright.yml`)
-   - Multi-platform testing (Ubuntu, Windows, macOS)
+   - **macOS** testing with **Chrome & Firefox** (2 browsers)
    - Manual server startup
    - Comprehensive artifact collection
+   - Focused on UI testing only
 
 2. **Playwright Tests Optimized** (`playwright-optimized.yml`)
+   - **macOS** with **Chrome & Firefox** matrix testing
    - Uses Playwright's webServer configuration
-   - Matrix testing across browsers
-   - Faster execution
-   - Includes Newman API testing
+   - Fast execution with 2 browser environments
+   - Focused on UI testing only
 
 3. **API Tests with Newman** (`api-tests.yml`)
+   - **macOS** environment for API validation
    - Dedicated API testing workflow
-   - Multi-platform API validation
    - Comprehensive endpoint coverage
+   - Separate from UI testing for better performance
 
 ### CI Features
 - ✅ **Automatic triggers** on push/PR to main/develop

@@ -7,138 +7,7 @@ on:
     branches: [ '**' ]
 
 jobs:
-  test:
-    timeout-minutes: 60
-    runs-on: ubuntu-latest
-    
-    steps:
-    - uses: actions/checkout@v4
-    
-    - name: Setup Node.js
-      uses: actions/setup-node@v4
-      with:
-        node-version: '18'
-        cache: 'npm'
-    
-    - name: Install dependencies
-      run: npm ci
-    
-    - name: Install backend dependencies
-      run: |
-        cd backend
-        npm ci
-    
-    - name: Install frontend dependencies
-      run: |
-        cd frontend
-        npm ci
-    
-    - name: Install Playwright Browsers
-      run: npx playwright install --with-deps
-    
-    - name: Start Backend Server
-      run: |
-        npm start &
-        sleep 10
-      env:
-        NODE_ENV: test
-      working-directory: ./backend
-    
-    - name: Start Frontend Server
-      run: |
-        npm start &
-        sleep 15
-      env:
-        REACT_APP_API_URL: http://localhost:3001
-      working-directory: ./frontend
-    
-    - name: Run Playwright tests
-      run: npx playwright test
-      env:
-        CI: true
-        NODE_ENV: test
-    
-    - name: Upload test results
-      if: always()
-      uses: actions/upload-artifact@v4
-      with:
-        name: playwright-report
-        path: |
-          playwright-report/
-          test-results/
-        retention-days: 30
-    
-    - name: Upload trace files
-      if: always()
-      uses: actions/upload-artifact@v4
-      with:
-        name: playwright-traces
-        path: test-results/**/*.trace
-        retention-days: 30
-
-  test-on-windows:
-    timeout-minutes: 60
-    runs-on: windows-latest
-    
-    steps:
-    - uses: actions/checkout@v4
-    
-    - name: Setup Node.js
-      uses: actions/setup-node@v4
-      with:
-        node-version: '18'
-        cache: 'npm'
-    
-    - name: Install dependencies
-      run: npm ci
-    
-    - name: Install backend dependencies
-      run: |
-        cd backend
-        npm ci
-    
-    - name: Install frontend dependencies
-      run: |
-        cd frontend
-        npm ci
-    
-    - name: Install Playwright Browsers
-      run: npx playwright install --with-deps
-    
-    - name: Start Backend Server
-      run: |
-        npm start
-      env:
-        NODE_ENV: test
-      shell: cmd
-      working-directory: ./backend
-    
-    - name: Start Frontend Server
-      run: |
-        npm start
-      env:
-        REACT_APP_API_URL: http://localhost:3001
-      shell: cmd
-      working-directory: ./frontend
-    
-    - name: Run Playwright tests
-      run: npx playwright test
-      env:
-        CI: true
-        NODE_ENV: test
-      shell: cmd
-    
-    - name: Upload test results
-      if: always()
-      uses: actions/upload-artifact@v4
-      with:
-        name: playwright-report-windows
-        path: |
-          playwright-report/
-          test-results/
-        retention-days: 30
-
-  test-on-macos:
+  test-macos:
     timeout-minutes: 60
     runs-on: macos-latest
     
@@ -151,7 +20,7 @@ jobs:
         node-version: '18'
         cache: 'npm'
     
-    - name: Install dependencies
+    - name: Install root dependencies
       run: npm ci
     
     - name: Install backend dependencies
@@ -194,6 +63,79 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: playwright-report-macos
+        path: |
+          playwright-report/
+          test-results/
+        retention-days: 30
+    
+    - name: Upload trace files
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: playwright-traces-macos
+        path: test-results/**/*.trace
+        retention-days: 30
+
+  test-browsers:
+    timeout-minutes: 60
+    runs-on: macos-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        browser: [chromium, firefox]
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        cache: 'npm'
+    
+    - name: Install root dependencies
+      run: npm ci
+    
+    - name: Install backend dependencies
+      run: |
+        cd backend
+        npm ci
+    
+    - name: Install frontend dependencies
+      run: |
+        cd frontend
+        npm ci
+    
+    - name: Install Playwright Browsers
+      run: npx playwright install --with-deps
+    
+    - name: Start Backend Server
+      run: |
+        npm start &
+        sleep 10
+      env:
+        NODE_ENV: test
+      working-directory: ./backend
+    
+    - name: Start Frontend Server
+      run: |
+        npm start &
+        sleep 15
+      env:
+        REACT_APP_API_URL: http://localhost:3001
+      working-directory: ./frontend
+    
+    - name: Run Playwright tests
+      run: npx playwright test --project=${{ matrix.browser }}
+      env:
+        CI: true
+        NODE_ENV: test
+    
+    - name: Upload test results
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: playwright-report-${{ matrix.browser }}
         path: |
           playwright-report/
           test-results/

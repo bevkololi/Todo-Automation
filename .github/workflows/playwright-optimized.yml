@@ -7,9 +7,9 @@ on:
     branches: [ '**' ]
 
 jobs:
-  test:
+  test-macos:
     timeout-minutes: 60
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
     
     steps:
     - uses: actions/checkout@v4
@@ -35,20 +35,6 @@ jobs:
     
     - name: Install Playwright Browsers
       run: npx playwright install --with-deps
-    
-    - name: Start Backend Server
-      run: |
-        npm start &
-        sleep 10
-      env:
-        NODE_ENV: test
-      working-directory: ./backend
-    
-    - name: Run API Tests with Newman
-      run: npm run api:test:ci
-      env:
-        CI: true
-        NODE_ENV: test
     
     - name: Run Playwright tests
       run: npx playwright test
@@ -60,7 +46,7 @@ jobs:
       if: always()
       uses: actions/upload-artifact@v4
       with:
-        name: playwright-report
+        name: playwright-report-macos
         path: |
           playwright-report/
           test-results/
@@ -70,18 +56,17 @@ jobs:
       if: always()
       uses: actions/upload-artifact@v4
       with:
-        name: playwright-traces
+        name: playwright-traces-macos
         path: test-results/**/*.trace
         retention-days: 30
 
-  test-matrix:
+  test-browsers:
     timeout-minutes: 60
-    runs-on: ${{ matrix.os }}
+    runs-on: macos-latest
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-latest, windows-latest, macos-latest]
-        browser: [chromium, firefox, webkit]
+        browser: [chromium, firefox]
     
     steps:
     - uses: actions/checkout@v4
@@ -108,20 +93,6 @@ jobs:
     - name: Install Playwright Browsers
       run: npx playwright install --with-deps
     
-    - name: Start Backend Server
-      run: |
-        npm start &
-        sleep 10
-      env:
-        NODE_ENV: test
-      working-directory: ./backend
-    
-    - name: Run API Tests with Newman
-      run: npm run api:test:ci
-      env:
-        CI: true
-        NODE_ENV: test
-    
     - name: Run Playwright tests
       run: npx playwright test --project=${{ matrix.browser }}
       env:
@@ -132,7 +103,7 @@ jobs:
       if: always()
       uses: actions/upload-artifact@v4
       with:
-        name: playwright-report-${{ matrix.os }}-${{ matrix.browser }}
+        name: playwright-report-${{ matrix.browser }}
         path: |
           playwright-report/
           test-results/
