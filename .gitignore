@@ -1,4 +1,4 @@
-node_modules
+node_modules/
 
 # Playwright test results and reports
 test-results/
