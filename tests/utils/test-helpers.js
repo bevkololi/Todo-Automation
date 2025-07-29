@@ -28,6 +28,7 @@ const SELECTORS = {
     TODO_TITLE: '[data-testid="todo-title"]',
     TODO_ACTIONS: '.todo-actions',
     EDIT_BUTTON: '[data-testid="edit-btn"]',
+    EDIT_TODO_INPUT: '[data-testid="edit-todo-input"]',
     DELETE_BUTTON: '[data-testid="delete-btn"]',
     CLEAR_ALL_BUTTON: '[data-testid="clear-all-btn"]',
 

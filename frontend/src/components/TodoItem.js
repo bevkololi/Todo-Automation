@@ -48,6 +48,7 @@ const TodoItem = ({ todo, onUpdate, onToggle, onDelete }) => {
                         onBlur={handleEdit}
                         onKeyDown={handleKeyPress}
                         autoFocus
+                        data-testid="edit-todo-input"
                         style={{
                             flex: 1,
                             padding: '8px 12px',

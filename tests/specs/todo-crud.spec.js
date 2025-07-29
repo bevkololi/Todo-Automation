@@ -6,15 +6,15 @@ const { SELECTORS, TestData } = require('../utils/test-helpers');
  * Tests create, read, update, delete operations for todos
  */
 test.describe('Todo CRUD Operations', () => {
-    test.beforeEach(async ({ authenticatedPage, api }) => {
-        await api.clearAllTodos();
+    test.beforeEach(async ({ authenticatedPage, pageHelper }) => {
+        await pageHelper.setupEmptyState();
     });
 
     test.afterEach(async ({ pageHelper }) => {
         await pageHelper.logout();
     });
 
-    test('User can create a new todo', async ({ authenticatedPage, pageHelper }) => {
+    test('User can create a single todo', async ({ authenticatedPage, pageHelper }) => {
         const todoTitle = TestData.generateTodoTitle('Create Test');
         await pageHelper.addTodo(todoTitle);
         await expect(authenticatedPage.locator(`text=${todoTitle}`)).toBeVisible();
@@ -36,8 +36,6 @@ test.describe('Todo CRUD Operations', () => {
     });
 
     test('User cannot create todo with empty title', async ({ authenticatedPage, pageHelper }) => {
-        await pageHelper.setupEmptyState();
-
         await authenticatedPage.fill(SELECTORS.ADD_TODO_INPUT, '');
         await authenticatedPage.press(SELECTORS.ADD_TODO_INPUT, 'Enter');
         await expect(authenticatedPage.locator(SELECTORS.TODO_ITEM)).toHaveCount(0);
@@ -62,8 +60,8 @@ test.describe('Todo CRUD Operations', () => {
         const editButton = todoItem.locator(SELECTORS.EDIT_BUTTON);
         await editButton.click();
 
-        await authenticatedPage.waitForSelector('input[type="text"]:focus');
-        const titleInput = authenticatedPage.locator('input[type="text"]:focus');
+        await authenticatedPage.waitForSelector(SELECTORS.EDIT_TODO_INPUT);
+        const titleInput = authenticatedPage.locator(SELECTORS.EDIT_TODO_INPUT);
         await expect(titleInput).toHaveValue(originalTitle);
 
         await titleInput.fill('');
@@ -77,8 +75,6 @@ test.describe('Todo CRUD Operations', () => {
     });
 
     test('User can delete todo with confirmation', async ({ authenticatedPage, pageHelper }) => {
-        await pageHelper.setupEmptyState();
-
         const todoTitle = TestData.generateTodoTitle('Delete Test');
         await pageHelper.addTodo(todoTitle);
         await expect(authenticatedPage.locator(`text=${todoTitle}`)).toBeVisible();
