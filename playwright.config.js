@@ -87,13 +87,13 @@ module.exports = defineConfig({
         {
             command: 'npm run backend:dev',
             url: 'http://localhost:3001/health',
-            reuseExistingServer: !process.env.CI,
+            reuseExistingServer: true,
             timeout: 120 * 1000,
         },
         {
             command: 'npm run frontend:dev',
             url: 'http://localhost:3000',
-            reuseExistingServer: !process.env.CI,
+            reuseExistingServer: true,
             timeout: 120 * 1000,
         }
     ],

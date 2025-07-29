@@ -27,9 +27,10 @@
 									"    pm.expect(jsonData.token.length).to.be.greaterThan(0);",
 									"});",
 									"",
-									"pm.test(\"Response has message\", function () {",
+									"pm.test(\"Response has user object\", function () {",
 									"    var jsonData = pm.response.json();",
-									"    pm.expect(jsonData.message).to.equal(\"Login successful\");",
+									"    pm.expect(jsonData.user).to.exist;",
+									"    pm.expect(jsonData.user.username).to.equal(\"admin\");",
 									"});",
 									"",
 									"if (pm.response.json().token) {",
@@ -449,7 +450,7 @@
 									"",
 									"pm.test(\"Response has success message\", function () {",
 									"    var jsonData = pm.response.json();",
-									"    pm.expect(jsonData.message).to.equal(\"All todos cleared successfully\");",
+									"    pm.expect(jsonData.message).to.equal(\"All todos deleted successfully\");",
 									"});"
 								],
 								"type": "text/javascript"
@@ -596,4 +597,4 @@
 			"type": "string"
 		}
 	]
-} 
+}
