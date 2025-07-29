@@ -95,7 +95,11 @@ For advanced usage, see code comments or open an issue on GitHub.
 
 Below are example screenshots from Playwright UI tests and test result reports. All screenshots are located in the `screenshots/` folder.
 
-| Login Screen | Todo List | Test Report |
-|--------------|-----------|-------------|
-| ![Login](screenshots/Screenshot%202025-07-29%20at%2012.30.06.png) | ![Todo List](screenshots/Screenshot%202025-07-29%20at%2012.30.33.png) | ![Report](screenshots/Screenshot%202025-07-29%20at%2013.00.14.png) |
+<p align="center">
+  <img src="screenshots/Screenshot%202025-07-29%20at%2012.30.06.png" width="250" />
+  <img src="screenshots/Screenshot%202025-07-29%20at%2012.30.33.png" width="250" />
+  <img src="screenshots/Screenshot%202025-07-29%20at%2012.56.58.png" width="250" />
+  <img src="screenshots/Screenshot%202025-07-29%20at%2012.57.59.png" width="250" />
+  <img src="screenshots/Screenshot%202025-07-29%20at%2013.00.14.png" width="250" />
+</p>
 
