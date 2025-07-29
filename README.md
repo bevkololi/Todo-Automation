@@ -1,241 +1,101 @@
 # Todo-Automation
 
-A full-stack todo application with comprehensive Playwright testing and CI/CD integration.
+A simple full-stack Todo app with Node.js/Express backend, React frontend, and Playwright E2E tests. Includes CI/CD with GitHub Actions.
 
-## 🚀 Features
+## 🚀 Quick Start
 
-- **Backend**: Node.js/Express API with full CRUD operations
-- **Frontend**: React.js with modern UI (green/white theme)
-- **Testing**: Comprehensive Playwright E2E test suite
-- **CI/CD**: GitHub Actions with multi-platform testing
-- **Authentication**: Simple token-based auth system
-
-## 📁 Project Structure
-
-```
-Todo-Automation/
-├── backend/                 # Node.js API server
-├── frontend/               # React.js application
-├── tests/                  # Playwright test suite
-├── .github/workflows/      # GitHub Actions CI/CD
-└── package.json           # Root package.json for scripts
-```
-
-## 🛠️ Quick Start
-
-### Prerequisites
-- Node.js 18+
-- npm or yarn
-
-### Installation
 ```bash
-# Clone the repository
-git clone <repository-url>
-cd Todo-Automation
+# 1. Clone the repo
+ git clone <your-repo-url>
+ cd Todo-Automation
 
-# Install dependencies
-npm install
+# 2. Install all dependencies
+ npm install
 
-# Install Playwright browsers
-npx playwright install
+# 3. Install Playwright browsers
+ npx playwright install
+
+# 4. Start backend & frontend (in two terminals):
+ npm run backend:dev   # http://localhost:3001
+ npm run frontend:dev  # http://localhost:3000
 ```
 
-### Development
-```bash
-# Start both backend and frontend
-npm run dev
+## 🧪 Run Tests
 
-# Or start individually
-npm run backend:dev    # Backend on http://localhost:3001
-npm run frontend:dev   # Frontend on http://localhost:3000
-```
-
-### Testing
 ```bash
-# Run all tests
+# UI tests (Playwright)
 npm test
 
-# Run tests in headed mode
-npm run test:headed
-
-# Run tests with UI
-npm run test:ui
-
-# Run specific test file
-npm test tests/specs/auth.spec.js
-
-# Generate test report
-npm run test:report
-
-# Run API tests with Newman
+# API tests (Newman/Postman)
 npm run api:test
-
-# Run API tests for CI
-npm run api:test:ci
 ```
 
-## 🧪 Test Suite
+## 🔑 Demo Login
+- Username: `admin`
+- Password: `admin`
 
-### Test Categories
-- **Authentication**: Login, logout, session management
-- **CRUD Operations**: Create, read, update, delete todos
-- **Navigation**: Side menu, different views, empty states
-- **API Testing**: Direct backend endpoint testing with Newman/Postman
-- **UI Testing**: Frontend testing with Playwright
+## 🛠️ Troubleshooting
+- If `npm ci` fails in CI, make sure `package-lock.json` is committed for each app.
+- Never commit `node_modules/`.
+- For more help, open an issue or check the code comments.
 
-### Test Features
-- ✅ **Robust selectors** using `data-testid` attributes
-- ✅ **Test isolation** with proper setup/teardown
-- ✅ **Atomic tests** that don't depend on each other
-- ✅ **Parallel execution** for faster feedback
-- ✅ **Retry mechanism** for flaky tests
-- ✅ **Trace viewer** for debugging
-- ✅ **Multiple browsers** (Chromium, Firefox, WebKit)
-- ✅ **API testing** with Newman and Postman collections
-- ✅ **Comprehensive coverage** of all endpoints
+## 📦 Project Structure
+- `backend/`   — Node.js API
+- `frontend/`  — React app
+- `tests/`     — Playwright E2E tests
+- `.github/`   — CI/CD workflows
 
-### Test Structure
-```
-tests/
-├── fixtures/           # Test fixtures and helpers
-├── specs/             # Test specifications
-├── utils/             # Test utilities and helpers
-├── global-setup.js    # Global test setup
-└── global-teardown.js # Global test cleanup
+## 📬 Sample API Requests
 
-postman/
-├── Todo-Automation.postman_collection.json    # API test collection
-├── Todo-Automation.postman_environment.json   # Environment variables
-└── README.md                                  # API testing documentation
-```
+### Login
 
-## 🔄 CI/CD Pipeline
-
-### GitHub Actions Workflows
-
-1. **Playwright Tests** (`playwright.yml`)
-   - **macOS** testing with **Chrome & Firefox** (2 browsers)
-   - Manual server startup
-   - Comprehensive artifact collection
-   - Focused on UI testing only
-
-2. **Playwright Tests Optimized** (`playwright-optimized.yml`)
-   - **macOS** with **Chrome & Firefox** matrix testing
-   - Uses Playwright's webServer configuration
-   - Fast execution with 2 browser environments
-   - Focused on UI testing only
-
-3. **API Tests with Newman** (`api-tests.yml`)
-   - **macOS** environment for API validation
-   - Dedicated API testing workflow
-   - Comprehensive endpoint coverage
-   - Separate from UI testing for better performance
-
-### CI Features
-- ✅ **Automatic triggers** on push/PR to main/develop
-- ✅ **Multi-platform testing** (Linux, Windows, macOS)
-- ✅ **Multi-browser testing** (Chrome, Firefox, Safari)
-- ✅ **Artifact uploads** (reports, traces, screenshots)
-- ✅ **30-day retention** for test artifacts
-- ✅ **Parallel execution** for faster feedback
-
-### Viewing CI Results
-1. Go to your repository's "Actions" tab
-2. Click on a workflow run
-3. Download artifacts for detailed reports
-4. View logs for debugging information
-
-## 🎯 API Endpoints
-
-### Authentication
-- `POST /login` - Login with username/password
-
-### Todo Operations
-- `GET /items` - Get all todos
-- `POST /items` - Create new todo
-- `GET /items/:id` - Get specific todo
-- `PUT /items/:id` - Update todo
-- `PATCH /items/:id/toggle` - Toggle completion
-- `DELETE /items/:id` - Delete specific todo
-- `DELETE /items` - Clear all todos
-
-### Health Check
-- `GET /health` - Server health status
-
-## 🔧 Configuration
-
-### Environment Variables
-- `NODE_ENV` - Environment (development, test, production)
-- `REACT_APP_API_URL` - Frontend API endpoint
-- `CI` - CI environment flag
-
-### Playwright Configuration
-- **Base URL**: `http://localhost:3000`
-- **Test timeout**: 30 seconds
-- **Expect timeout**: 10 seconds
-- **Retries**: 2 for failed tests
-- **Workers**: 4 parallel tests
-- **Trace**: On for failed tests
-
-## 📊 Test Reports
-
-### Local Reports
+**Request:**
 ```bash
-# Generate HTML report
-npm run test:report
-
-# Open report in browser
-npx playwright show-report
+curl -X POST http://localhost:3001/login \
+  -H "Content-Type: application/json" \
+  -d '{"username":"admin","password":"admin"}'
 ```
 
-### CI Reports
-- Download artifacts from GitHub Actions
-- Extract and open `playwright-report/index.html`
-- View traces with Playwright Trace Viewer
+**Response:**
+```json
+{
+  "token": "fake-jwt-token",
+  "user": {
+    "username": "admin",
+    "role": "admin"
+  }
+}
+```
 
-## 🐛 Debugging
+### Get All Todos
 
-### Local Debugging
+**Request:**
 ```bash
-# Run tests in headed mode
-npm run test:headed
-
-# Run with debug mode
-npm run test:debug
-
-# Generate test code
-npm run test:codegen
+curl -X GET http://localhost:3001/items \
+  -H "Authorization: Bearer <token>"
 ```
 
-### CI Debugging
-1. Download trace files from artifacts
-2. Use Playwright Trace Viewer: `npx playwright show-trace trace.zip`
-3. View screenshots and videos in test-results folder
-4. Check detailed logs in GitHub Actions
+**Response:**
+```json
+[
+  {
+    "id": 1,
+    "title": "Buy groceries",
+    "completed": false,
+    "createdAt": "2024-01-01T12:00:00.000Z",
+    "updatedAt": "2024-01-01T12:00:00.000Z"
+  }
+]
+```
 
-## 🤝 Contributing
+---
+For advanced usage, see code comments or open an issue on GitHub.
 
-1. Fork the repository
-2. Create a feature branch
-3. Write tests for new features
-4. Ensure all tests pass
-5. Submit a pull request
+## 🖼️ UI Test & Results Screenshots
 
-### Testing Guidelines
-- Write tests for all new features
-- Use `data-testid` attributes for selectors
-- Keep tests independent and atomic
-- Follow the existing test patterns
-- Update documentation as needed
+Below are example screenshots from Playwright UI tests and test result reports. All screenshots are located in the `screenshots/` folder.
 
-## 📝 License
+| Login Screen | Todo List | Test Report |
+|--------------|-----------|-------------|
+| ![Login](screenshots/Screenshot%202025-07-29%20at%2012.30.06.png) | ![Todo List](screenshots/Screenshot%202025-07-29%20at%2012.30.33.png) | ![Report](screenshots/Screenshot%202025-07-29%20at%2013.00.14.png) |
 
-This project is licensed under the MIT License.
-
-## 🆘 Support
-
-For issues and questions:
-1. Check the test documentation in `tests/README.md`
-2. Review CI/CD setup in `.github/README.md`
-3. Open an issue with detailed information
-4. Include test logs and screenshots for failures
