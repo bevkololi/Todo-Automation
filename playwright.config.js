@@ -42,6 +42,13 @@ module.exports = defineConfig({
 
         /* Global timeout for navigation */
         navigationTimeout: 30000,
+
+        /* Collect code coverage from browser execution */
+        coverage: {
+            enabled: true,
+            include: ['frontend/src/**/*.js', 'frontend/src/**/*.jsx'],
+            exclude: ['**/*.test.js', '**/*.spec.js', '**/node_modules/**']
+        }
     },
 
     /* Configure projects for major browsers */

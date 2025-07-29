@@ -28,7 +28,40 @@ npm test
 
 # API tests (Newman/Postman)
 npm run api:test
+
+# Run tests with code coverage
+npm run test
+
+# View coverage report
+npm run coverage:show
 ```
+
+## 📊 Code Coverage
+
+This project includes code coverage collection for frontend code during Playwright E2E tests.
+
+### **Run Coverage:**
+```bash
+# Run tests with coverage collection
+npm run test
+
+# View the HTML coverage report
+npm run coverage:show
+```
+
+### **Coverage Reports:**
+- **HTML Report**: Interactive coverage report showing which lines of code were executed
+- **Coverage Metrics**: 
+  - **Statements**: Lines of code executed
+  - **Branches**: Conditional paths taken
+  - **Functions**: Functions called during tests
+  - **Lines**: Lines covered by tests
+
+### **What's Covered:**
+- React components rendered during tests
+- User interactions and form submissions
+- Navigation and state changes
+- API calls and error handling
 
 ## 🔑 Demo Login
 - Username: `admin`
@@ -102,4 +135,3 @@ Below are example screenshots from Playwright UI tests and test result reports. 
   <img src="screenshots/Screenshot%202025-07-29%20at%2012.57.59.png" width="250" />
   <img src="screenshots/Screenshot%202025-07-29%20at%2013.00.14.png" width="250" />
 </p>
-
